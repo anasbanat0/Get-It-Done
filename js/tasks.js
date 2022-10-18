@@ -9,7 +9,7 @@ function Task(title) {
 
 function CompletedTasks(title) {
   this.title = title;
-  this.completedData = getCurrentDate();
+  this.completedDate = getCurrentDate();
 }
 
 window.onload = function() {

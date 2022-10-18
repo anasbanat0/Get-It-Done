@@ -22,20 +22,16 @@
         </header>
         <section id="theme">
           <h5 class="bold">Theme:
-            <span id="light" class="current-theme">Light</span>
-            <span id="dark">Dark</span>
+            <span id="light" class="current-theme" onclick="updateTheme('light')">Light</span>
+            <span id="dark" onclick="updateTheme('dark')">Dark</span>
           </h5>
         </section>
         <section id="completed-tasks">
           <h5 class="bold">Recently Completed Tasks</h5>
           <ul id="completed-task-list">
-            <li>Eat Potato: <span>Oct 15th</span></li>
-            <li>Write Code: <span>Oct 15th</span></li>
-            <li>Walk with Friend: <span>Oct 15th</span></li>
-            <li>Check Email: <span>Oct 15th</span></li>
           </ul>
         </section>
-        <h5 id="reset" class="bold">Reset All</h5>
+        <h5 id="reset" class="bold" onclick="attemptReset()">Reset All</h5>
       </div>
     </div>
 
@@ -48,11 +44,11 @@
         <header>
           <div>
             <h3>Total Tasks</h3>
-            <h4 id="total">2</h4>
+            <h4 id="total"></h4>
           </div>
           <div>
             <h3>Completed Tasks</h3>
-            <h4 id="completed">74</h4>
+            <h4 id="completed"></h4>
           </div>
         </header>
       </article>
@@ -61,16 +57,16 @@
         <label>Press enter to create task!</label>
       </article>
       <ul id="task-list" class="bold">
-        <li>Do Stuff</li>
+        <!-- <li>Do Stuff</li>
         <li>Sleep</li>
-        <li>Be Awesome</li>
+        <li>Be Awesome</li> -->
       </ul>
     </section>
 
     <dialog id="modal">
       <h2 class="bold">This will reset all associated data. <br />Are you sure you want to do that?</h2>
-      <button class="black">Yes</button>
-      <button class="black">No</button>
+      <button class="black" onclick="reset(); closeModal()">Yes</button>
+      <button class="black" onclick="closeModal()">No</button>
     </dialog>
 
     <script src="js/date_format.js" charset="utf-8"></script>
