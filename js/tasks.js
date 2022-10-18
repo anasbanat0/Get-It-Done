@@ -1,7 +1,7 @@
 let database;
 
 const  taskStore = "Tasks";
-const completedTaskstore = "CompletedTasks";
+const completedTaskStore = "CompletedTasks";
 
 function Task(title) {
   this.title = title;
@@ -16,6 +16,7 @@ window.onload = function() {
   let req = window.indexedDB.open("GetItDoneApp", 1);
   req.onsuccess = function() {
     database = req.result;
+    onload();
   }
 
   req.onerror = function(event) {
@@ -26,7 +27,7 @@ window.onload = function() {
     let db = req.result;
     console.log("Created Stores");
     let objectStore = db.createObjectStore(taskStore, {keyPath: "id", autoIncrement: true});
-    let objectStore2 = db.createObjectStore(completedTaskstore, {keyPath: "id", autoIncrement: true});
+    let objectStore2 = db.createObjectStore(completedTaskStore, {keyPath: "id", autoIncrement: true});
   }
 }
 
@@ -35,16 +36,16 @@ let defaultError = function() {
 }
 
 function addTask(store, task, success, error = defaultError) {
-  let transaction = database.transation([store], "readwrite");
-  let objectStore = transation.objectStore(store);
+  let transaction = database.transaction([store], "readwrite");
+  let objectStore = transaction.objectStore(store);
   let request = objectStore.add(task);
   request.onerror = error;
   request.onsuccess = success;
 }
 
 function readTasks(store, success, error = defaultError) {
-  let transaction = database.transation([store], "readonly");
-  let objectStore = transation.objectStore(store);
+  let transaction = database.transaction([store], "readonly");
+  let objectStore = transaction.objectStore(store);
   let request = objectStore.openCursor();
   request.onerror = error;
   let tasks = [];
@@ -61,8 +62,8 @@ function readTasks(store, success, error = defaultError) {
 }
 
 function readOneTask(store, id, success, error = defaultError) {
-  let transaction = database.transation([store], "readonly");
-  let objectStore = transation.objectStore(store);
+  let transaction = database.transaction([store], "readonly");
+  let objectStore = transaction.objectStore(store);
   let request = objectStore.get(id);
   request.onerror = error;
   request.onsuccess = function() {
@@ -71,17 +72,17 @@ function readOneTask(store, id, success, error = defaultError) {
 }
 
 function deleteTask(store, id, success, error = defaultError) {
-  let transaction = database.transation([store], "readwrite");
-  let objectStore = transation.objectStore(store);
+  let transaction = database.transaction([store], "readwrite");
+  let objectStore = transaction.objectStore(store);
   let request = objectStore.delete(id);
   request.onerror = error;
   request.onsuccess = success;
 }
 
 function deleteAllTasks(store, success, error = defaultError) {
-  success = success || function() {}
-  let transaction = database.transation([store], "readwrite");
-  let objectStore = transation.objectStore(store);
+  success = success || function() {console.log("Deleted All Tasks")}
+  let transaction = database.transaction([store], "readwrite");
+  let objectStore = transaction.objectStore(store);
   let request = objectStore.clear();
   request.onerror = error;
   request.onsuccess = success;
